@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "c951083f-2f4f-4de7-bb28-244b7675bb2c",
+		"name": "Plagairism Checking API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20331745"
+	},
+	"item": [
+		{
+			"name": "Plagiarism checking API_1",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"essays_dict\": {\"1\":\"Hello World\", \"2\":\"Hello World\", \"3\":\"hi world there\"}, \"cased\": \"False\"}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3759/plagiarism/predict",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3759",
+					"path": [
+						"plagiarism",
+						"predict"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Plagiarism checking API_2",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"essays_dict\": {\"1\":\"Hello World sdasad dasda s wewrwe yhtyhyth t olioi kukuik u wqwe qweqssdfs sfsfsdf s\", \"2\":\"Hello World eqweqjyjy jyuju ilolol loo..qweqeasda  qqweqwe aff\", \"3\":\"hi world there loll 8l rwr werw 242 wwewfwe \"}, \"cased\": \"True\"}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3759/plagiarism/predict",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3759",
+					"path": [
+						"plagiarism",
+						"predict"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
