@@ -10,6 +10,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from configs.config import configs
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
+from fastapi.openapi.docs import (
+    get_redoc_html,
+    get_swagger_ui_html,
+    get_swagger_ui_oauth2_redirect_html,
+)
+from fastapi.staticfiles import StaticFiles
 
 
 BERT = transformer_model.BERTModel()
@@ -18,7 +24,7 @@ PM = plagiarism_model.PlagiarismModel(BERT)
 app = FastAPI(
     title="Quizzix Plagiarism_API",
     description="This is an API for plagiarism detection in essays. It is based on the sentence-transformers library and the paraphrase-multilingual-MiniLM-L12-v2 model.",
-    version="0.1.0"
+    version="0.1.0", docs_url=None, redoc_url=None
 )
 
 origins = ["*"]
@@ -30,6 +36,24 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+@app.get("/docs", include_in_schema=False)
+async def custom_swagger_ui_html():
+    return get_swagger_ui_html(
+        openapi_url=app.openapi_url,
+        title=app.title + " - Swagger UI",
+        oauth2_redirect_url=app.swagger_ui_oauth2_redirect_url,
+        swagger_js_url="../static/swagger-ui-bundle.js",
+        swagger_css_url="../static/swagger-ui.css",
+    )
+
+@app.get(app.swagger_ui_oauth2_redirect_url, include_in_schema=False)
+async def swagger_ui_redirect():
+    return get_swagger_ui_oauth2_redirect_html()
+
 
 
 class StudentsDict(BaseModel):
